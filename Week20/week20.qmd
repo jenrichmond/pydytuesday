@@ -1,0 +1,137 @@
+---
+title: "Week20"
+format: html
+---
+
+# get the data
+
+Why are file paths so annoying? There is no here package so here I am using os.chdir() to set a working directory. os doesn't need to be installed, it somes packaged with Python. 
+
+```{python}
+import os
+
+# Set the working directory
+os.chdir("/Users/jenrichmond/Documents/positron/pydytuesday-project/Week20/")
+
+# Check it's set correctly
+print(os.getcwd())
+
+```
+
+Two ways of reading Tidy Tuesday data. pydytuesday.get_date() downloads all the files into your working directory and then you can read them manual. Alternatively, pd.read_csv() will take the URL of the data on github. 
+
+```{python}
+
+import pydytuesday
+import pandas as pd
+from plotnine import ggplot, aes, geom_line, theme_minimal, labs, geom_hline, scale_x_datetime
+
+# Option 1: Download files from the week, which you can then read in locally
+pydytuesday.get_date('2025-05-20')
+
+# right click on file in Explorer, copy relative path
+
+w = pd.read_csv("water_quality.csv")
+
+# Option 2: Read directly from GitHub and assign to an object
+
+water = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-05-20/water_quality.csv')
+
+
+```
+
+# explore the data
+
+### names of the columns
+
+Renaming the big enterococci variable as bugs, inplace= True makes the rename apply to the dataframe. Note in python is it 'old' : 'new', opposite to R rename new = old.
+
+> Like: water <- water |> rename(bugs = enterococci_cfu_100ml)
+
+```{python}
+
+water.rename(columns={'enterococci_cfu_100ml': 'bugs'}, inplace=True)
+
+
+```
+
+I don't really remember why this columns function doesn't require () ?? My notes say...
+
+df.columns
+df.shape
+df.info
+df.describe()
+df.head()
+
+I don't know why the first 3 don't need brackets but describe and head do ??
+
+> Like names(water)
+
+```{python}
+
+water.columns
+```
+
+### what are the values of the swim sites
+
+> Like: unique(water\$swim_site)
+
+```{python}
+water.swim_site.unique()
+```
+
+# get descriptives
+
+Like: summary(water)
+
+```{python}
+water.describe()
+```
+
+### count data points per swim site
+
+> Like: water |> tabyl(swim_site)
+
+```{python}
+water['swim_site'].value_counts()
+```
+
+### get mean overall and by site
+
+> Like: water %\>% summarise(mean = mean(bugs) & water %\>% group_by(swim_site) %\>% summarise(mean = mean(bugs)
+
+```{python}
+
+water['bugs'].mean()
+
+water.groupby('swim_site').agg({'bugs': ['mean', 'min', 'max']})
+
+
+```
+
+### filter for just Coogee
+
+> Like: water %>% filter(swim_site == "Coogee Beach")
+
+```{python}
+coogee = water[water['swim_site'] == 'Coogee Beach']
+
+coogee.head()
+```
+
+# make an ugly plot
+
+```{python}
+
+coogee['date'] = pd.to_datetime(coogee['date'])
+
+(  
+    ggplot(coogee, mapping = aes(x = 'date', y = 'bugs')) + 
+        geom_line() +
+        theme_minimal() +
+        scale_x_datetime(date_labels = "%b-%Y", date_breaks = "5 years") +
+        labs(title = "Bug levels at Coogee Beach", y = "Enterococci (CFU 100ml)", x = "Date") 
+        
+        )
+```
+

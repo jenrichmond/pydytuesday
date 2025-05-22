@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Week20</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="week20_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week20_files/libs/quarto-html/quarto.js"></script>
+<script src="week20_files/libs/quarto-html/popper.min.js"></script>
+<script src="week20_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week20_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week20_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week20_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week20_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week20_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week20_files/libs/bootstrap/bootstrap-973236bd072d72a04ee9cd82dcc9cb29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week20</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="get-the-data" class="level1">
+<h1>get the data</h1>
+<p>Why are file paths so annoying? There is no here package so here I am using os.chdir() to set a working directory. os doesn’t need to be installed, it somes packaged with Python.</p>
+<div id="3895e713" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the working directory</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>os.chdir(<span class="st">"/Users/jenrichmond/Documents/positron/pydytuesday-project/Week20/"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check it's set correctly</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(os.getcwd())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/Users/jenrichmond/Documents/positron/pydytuesday-project/Week20</code></pre>
+</div>
+</div>
+<p>Two ways of reading Tidy Tuesday data. pydytuesday.get_date() downloads all the files into your working directory and then you can read them manual. Alternatively, pd.read_csv() will take the URL of the data on github.</p>
+<div id="bbc0e592" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydytuesday</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_line, theme_minimal, labs, geom_hline, scale_x_datetime</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 1: Download files from the week, which you can then read in locally</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>pydytuesday.get_date(<span class="st">'2025-05-20'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># right click on file in Explorer, copy relative path</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> pd.read_csv(<span class="st">"water_quality.csv"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 2: Read directly from GitHub and assign to an object</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>water <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-05-20/water_quality.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Trying to fetch README from: https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2025/2025-05-20/readme.md
+Successfully fetched README from: https://raw.githubusercontent.com/rfordatascience/tidytuesday/refs/heads/main/data/2025/2025-05-20/readme.md
+Downloading BeachwatchMap.png...
+Successfully saved BeachwatchMap.png to /Users/jenrichmond/Documents/positron/pydytuesday-project/Week20/BeachwatchMap.png
+Downloading meta.yaml...
+Successfully saved meta.yaml to /Users/jenrichmond/Documents/positron/pydytuesday-project/Week20/meta.yaml
+Downloading water_quality.csv...
+Successfully saved water_quality.csv to /Users/jenrichmond/Documents/positron/pydytuesday-project/Week20/water_quality.csv
+Downloading weather.csv...
+Successfully saved weather.csv to /Users/jenrichmond/Documents/positron/pydytuesday-project/Week20/weather.csv</code></pre>
+</div>
+</div>
+</section>
+<section id="explore-the-data" class="level1">
+<h1>explore the data</h1>
+<section id="names-of-the-columns" class="level3">
+<h3 class="anchored" data-anchor-id="names-of-the-columns">names of the columns</h3>
+<p>Renaming the big enterococci variable as bugs, inplace= True makes the rename apply to the dataframe. Note in python is it ‘old’ : ‘new’, opposite to R rename new = old.</p>
+<blockquote class="blockquote">
+<p>Like: water &lt;- water |&gt; rename(bugs = enterococci_cfu_100ml)</p>
+</blockquote>
+<div id="76fbc4c7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>water.rename(columns<span class="op">=</span>{<span class="st">'enterococci_cfu_100ml'</span>: <span class="st">'bugs'</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I don’t really remember why this columns function doesn’t require () ?? My notes say…</p>
+<p>df.columns df.shape df.info df.describe() df.head()</p>
+<p>I don’t know why the first 3 don’t need brackets but describe and head do ??</p>
+<blockquote class="blockquote">
+<p>Like names(water)</p>
+</blockquote>
+<div id="af2d01cb" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>water.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="54">
+<pre><code>Index(['region', 'council', 'swim_site', 'date', 'time', 'bugs',
+       'water_temperature_c', 'conductivity_ms_cm', 'latitude', 'longitude'],
+      dtype='object')</code></pre>
+</div>
+</div>
+</section>
+<section id="what-are-the-values-of-the-swim-sites" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-the-values-of-the-swim-sites">what are the values of the swim sites</h3>
+<blockquote class="blockquote">
+<p>Like: unique(water$swim_site)</p>
+</blockquote>
+<div id="52c3963e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>water.swim_site.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<pre><code>array(['Windsor Beach', 'Hayes Street Beach', 'Northbridge Baths',
+       'Fairlight Beach', 'Yarramundi Reserve', 'Little Manly Cove',
+       'Chiswick Baths', 'Dawn Fraser Pool', 'Rose Bay Beach',
+       'Camp Cove', 'Callan Park Seawall', 'Tambourine Bay',
+       'Forty Baskets Pool', 'Chinamans Beach', 'Greenwich Baths',
+       'Parsley Bay', 'Watsons Bay', 'Gurney Crescent Baths',
+       'Darling Harbour', 'Clontarf Pool', 'Cabarita Beach',
+       'Edwards Beach', 'Woodford Bay', 'Penrith Beach', 'Balmoral Baths',
+       'Manly Cove', 'Woolwich Baths', 'Davidson Reserve',
+       'Clifton Gardens', 'Murray Rose Pool', 'Nielsen Park',
+       'Newport Beach', 'Mona Vale Beach', 'Avalon Beach', 'Palm Beach',
+       'Bilgola Beach', 'Bungan Beach', 'Whale Beach',
+       'South Cronulla Beach', 'Wanda Beach', 'Boat Harbour',
+       'North Cronulla Beach', 'Shelly Beach (Sutherland)',
+       'Elouera Beach', 'Greenhills Beach', 'Oak Park Beach',
+       'South Maroubra Beach', 'Bondi Beach', 'Clovelly Beach',
+       'Tamarama Beach', 'Gordons Bay (East)', 'Maroubra Beach',
+       'Bronte Beach', 'South Maroubra Rockpool', 'Malabar Beach',
+       'Coogee Beach', 'Little Bay Beach', 'Long Reef Beach',
+       'Dee Why Beach', 'Narrabeen Lagoon (Birdwood Park)',
+       'Warriewood Beach', 'South Steyne Beach', 'North Steyne Beach',
+       'Queenscliff Beach', 'North Curl Curl Beach', 'Bilarong Reserve',
+       'Freshwater Beach', 'Turimetta Beach', 'Collaroy Beach',
+       'North Narrabeen Beach', 'Shelly Beach (Manly)',
+       'South Curl Curl Beach', 'Wentworth Falls Lake - Jetty',
+       'Megalong Creek', 'Wentworth Falls Lake - Beach',
+       'Yosemite Creek - Minnehaha Falls',
+       'Henley Baths (Kelly Street Baths)', 'Little Sirius Cove',
+       'Sangrado Baths'], dtype=object)</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="get-descriptives" class="level1">
+<h1>get descriptives</h1>
+<p>Like: summary(water)</p>
+<div id="b2bef780" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>water.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="56">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">bugs</th>
+<th data-quarto-table-cell-role="th">water_temperature_c</th>
+<th data-quarto-table-cell-role="th">conductivity_ms_cm</th>
+<th data-quarto-table-cell-role="th">latitude</th>
+<th data-quarto-table-cell-role="th">longitude</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>1.232230e+05</td>
+<td>48491.000000</td>
+<td>44994.000000</td>
+<td>123530.000000</td>
+<td>123530.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>1.167744e+02</td>
+<td>19.823204</td>
+<td>51560.121505</td>
+<td>-33.836779</td>
+<td>151.245408</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>4.714628e+03</td>
+<td>13.944991</td>
+<td>9523.704494</td>
+<td>0.123238</td>
+<td>0.091964</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000e+00</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>-34.069840</td>
+<td>150.235487</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000e+00</td>
+<td>17.000000</td>
+<td>52600.000000</td>
+<td>-33.914578</td>
+<td>151.200127</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>4.000000e+00</td>
+<td>20.000000</td>
+<td>53800.000000</td>
+<td>-33.828066</td>
+<td>151.266231</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>1.900000e+01</td>
+<td>22.000000</td>
+<td>54300.000000</td>
+<td>-33.767605</td>
+<td>151.297338</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>1.100000e+06</td>
+<td>1040.000000</td>
+<td>710400.000000</td>
+<td>-33.598779</td>
+<td>151.332569</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="count-data-points-per-swim-site" class="level3">
+<h3 class="anchored" data-anchor-id="count-data-points-per-swim-site">count data points per swim site</h3>
+<blockquote class="blockquote">
+<p>Like: water |&gt; tabyl(swim_site)</p>
+</blockquote>
+<div id="903f893f" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>water[<span class="st">'swim_site'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="57">
+<pre><code>swim_site
+Elouera Beach                       2508
+Wanda Beach                         2507
+South Cronulla Beach                2505
+North Cronulla Beach                2500
+Boat Harbour                        2495
+                                    ... 
+Megalong Creek                       172
+Windsor Beach                        124
+Yarramundi Reserve                   123
+Yosemite Creek - Minnehaha Falls     110
+Penrith Beach                         51
+Name: count, Length: 79, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="get-mean-overall-and-by-site" class="level3">
+<h3 class="anchored" data-anchor-id="get-mean-overall-and-by-site">get mean overall and by site</h3>
+<blockquote class="blockquote">
+<p>Like: water %&gt;% summarise(mean = mean(bugs) &amp; water %&gt;% group_by(swim_site) %&gt;% summarise(mean = mean(bugs)</p>
+</blockquote>
+<div id="b7f0e5f2" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>water[<span class="st">'bugs'</span>].mean()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>water.groupby(<span class="st">'swim_site'</span>).agg({<span class="st">'bugs'</span>: [<span class="st">'mean'</span>, <span class="st">'min'</span>, <span class="st">'max'</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="58">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="3" data-quarto-table-cell-role="th" data-halign="left">bugs</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">swim_site</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Avalon Beach</td>
+<td>12.168283</td>
+<td>0.0</td>
+<td>13000.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Balmoral Baths</td>
+<td>92.056165</td>
+<td>0.0</td>
+<td>20000.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bilarong Reserve</td>
+<td>142.654631</td>
+<td>0.0</td>
+<td>9000.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Bilgola Beach</td>
+<td>63.277938</td>
+<td>0.0</td>
+<td>96000.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Boat Harbour</td>
+<td>204.014877</td>
+<td>0.0</td>
+<td>140000.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Windsor Beach</td>
+<td>98.975806</td>
+<td>0.0</td>
+<td>2200.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Woodford Bay</td>
+<td>812.172211</td>
+<td>0.0</td>
+<td>800000.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Woolwich Baths</td>
+<td>858.609456</td>
+<td>0.0</td>
+<td>800000.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Yarramundi Reserve</td>
+<td>231.373984</td>
+<td>5.0</td>
+<td>6500.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Yosemite Creek - Minnehaha Falls</td>
+<td>208.722222</td>
+<td>1.0</td>
+<td>3800.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>79 rows × 3 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="filter-for-just-coogee" class="level3">
+<h3 class="anchored" data-anchor-id="filter-for-just-coogee">filter for just Coogee</h3>
+<blockquote class="blockquote">
+<p>Like: water %&gt;% filter(swim_site == “Coogee Beach”)</p>
+</blockquote>
+<div id="39182249" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coogee <span class="op">=</span> water[water[<span class="st">'swim_site'</span>] <span class="op">==</span> <span class="st">'Coogee Beach'</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>coogee.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">region</th>
+<th data-quarto-table-cell-role="th">council</th>
+<th data-quarto-table-cell-role="th">swim_site</th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">bugs</th>
+<th data-quarto-table-cell-role="th">water_temperature_c</th>
+<th data-quarto-table-cell-role="th">conductivity_ms_cm</th>
+<th data-quarto-table-cell-role="th">latitude</th>
+<th data-quarto-table-cell-role="th">longitude</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">90</td>
+<td>Sydney City</td>
+<td>Randwick City Council</td>
+<td>Coogee Beach</td>
+<td>2025-04-16</td>
+<td>08:45:00</td>
+<td>4.0</td>
+<td>21.0</td>
+<td>53700.0</td>
+<td>-33.92076</td>
+<td>151.25817</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">148</td>
+<td>Sydney City</td>
+<td>Randwick City Council</td>
+<td>Coogee Beach</td>
+<td>2025-04-10</td>
+<td>07:03:00</td>
+<td>16.0</td>
+<td>22.0</td>
+<td>53400.0</td>
+<td>-33.92076</td>
+<td>151.25817</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">270</td>
+<td>Sydney City</td>
+<td>Randwick City Council</td>
+<td>Coogee Beach</td>
+<td>2025-03-31</td>
+<td>08:41:00</td>
+<td>290.0</td>
+<td>22.0</td>
+<td>52100.0</td>
+<td>-33.92076</td>
+<td>151.25817</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">349</td>
+<td>Sydney City</td>
+<td>Randwick City Council</td>
+<td>Coogee Beach</td>
+<td>2025-03-25</td>
+<td>08:52:00</td>
+<td>26.0</td>
+<td>23.0</td>
+<td>53300.0</td>
+<td>-33.92076</td>
+<td>151.25817</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">359</td>
+<td>Sydney City</td>
+<td>Randwick City Council</td>
+<td>Coogee Beach</td>
+<td>2025-03-20</td>
+<td>08:20:00</td>
+<td>3.0</td>
+<td>21.0</td>
+<td>54000.0</td>
+<td>-33.92076</td>
+<td>151.25817</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="make-an-ugly-plot" class="level1">
+<h1>make an ugly plot</h1>
+<div id="5759abe8" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>coogee[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(coogee[<span class="st">'date'</span>])</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>(  </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    ggplot(coogee, mapping <span class="op">=</span> aes(x <span class="op">=</span> <span class="st">'date'</span>, y <span class="op">=</span> <span class="st">'bugs'</span>)) <span class="op">+</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        geom_line() <span class="op">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        theme_minimal() <span class="op">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        scale_x_datetime(date_labels <span class="op">=</span> <span class="st">"%b-%Y"</span>, date_breaks <span class="op">=</span> <span class="st">"5 years"</span>) <span class="op">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        labs(title <span class="op">=</span> <span class="st">"Bug levels at Coogee Beach"</span>, y <span class="op">=</span> <span class="st">"Enterococci (CFU 100ml)"</span>, x <span class="op">=</span> <span class="st">"Date"</span>) </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/jc/8qx0ds2s1g1dj7g3429xjjnw0000gn/T/ipykernel_86585/4275399317.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+/Users/jenrichmond/Documents/positron/pydytuesday-project/.venv/lib/python3.13/site-packages/mizani/breaks.py:448: FutureWarning: Passing the width as the parameter has been deprecated and will not work in a future version. Use breaks_date(width="4 years")</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week20_files/figure-html/cell-11-output-2.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
